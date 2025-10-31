@@ -1,0 +1,111 @@
+/* ============================
+   STOCK PORTFOLIO TRACKER STYLES
+   ============================ */
+
+   body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #dbeafe, #e0f2fe);
+    text-align: center;
+    padding: 40px;
+    color: #222;
+}
+
+/* Heading */
+h2 {
+    font-size: 32px;
+    color: #1d4ed8;
+    margin-bottom: 30px;
+}
+
+/* Form box */
+form {
+    background: #ffffff;
+    display: inline-block;
+    padding: 25px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    margin-bottom: 20px;
+}
+
+/* Input fields */
+input {
+    margin: 10px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #bbb;
+    font-size: 16px;
+    width: 230px;
+    outline: none;
+    transition: 0.2s ease-in-out;
+}
+
+input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 4px rgba(37, 99, 235, 0.5);
+}
+
+/* Button */
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+button:hover {
+    background: #1e40af;
+}
+
+/* Table styling */
+table {
+    border-collapse: collapse;
+    margin: 25px auto;
+    width: 60%;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background-color: #2563eb;
+    color: white;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+/* Messages */
+.error {
+    color: #dc2626;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+/* Graph styling */
+img {
+    margin-top: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+}
+
+img:hover {
+    transform: scale(1.03);
+}

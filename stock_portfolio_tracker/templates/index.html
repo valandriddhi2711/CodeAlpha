@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Portfolio Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Load Chart.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <h2>💹 Stock Portfolio Tracker</h2>
+
+    <form action="/calculate" method="POST">
+        <input type="text" name="stock_name" placeholder="Enter Stock Symbol (e.g., AAPL)" required>
+        <input type="number" name="quantity" placeholder="Enter Quantity" required>
+        <button type="submit">Add / Update</button>
+    </form>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    {% if portfolio %}
+        <div class="result">
+            <h3>Your Portfolio</h3>
+            <table border="1" style="margin:auto; border-collapse: collapse;">
+                <tr><th>Stock</th><th>Total Value ($)</th></tr>
+                {% for stock, value in portfolio.items() %}
+                    <tr><td>{{ stock }}</td><td>{{ value }}</td></tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}
+
+    <h3>📈 Portfolio Market Graph</h3>
+    <canvas id="portfolioChart" width="600" height="300"></canvas>
+
+    <script>
+        async function loadChart() {
+            const response = await fetch('/get_portfolio_data');
+            const data = await response.json();
+    
+            const ctx = document.getElementById('portfolioChart').getContext('2d');
+    
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: 'Investment Value ($)',
+                        data: data.values,
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 6,
+                        pointBackgroundColor: '#1e40af',
+                        segment: {
+                            borderColor: ctx => {
+                                const i = ctx.p0DataIndex;
+                                const current = ctx.chart.data.datasets[0].data[i];
+                                const next = ctx.chart.data.datasets[0].data[i + 1];
+                                if (next === undefined) return '#2563eb'; // default color for last point
+                                return next >= current ? 'green' : 'red'; // green if up, red if down
+                            },
+                            backgroundColor: ctx => {
+                                const i = ctx.p0DataIndex;
+                                const current = ctx.chart.data.datasets[0].data[i];
+                                const next = ctx.chart.data.datasets[0].data[i + 1];
+                                if (next === undefined) return 'rgba(37,99,235,0.1)';
+                                return next >= current ? 'rgba(0,128,0,0.1)' : 'rgba(255,0,0,0.1)';
+                            }
+                        }
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true, position: 'top' },
+                        title: {
+                            display: true,
+                            text: 'Live Stock Portfolio Trend',
+                            font: { size: 18 }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Value ($)' }
+                        },
+                        x: {
+                            title: { display: true, text: 'Stock Symbol' }
+                        }
+                    }
+                }
+            });
+        }
+    
+        loadChart();
+    </script>
+    
+
+</body>
+</html>
