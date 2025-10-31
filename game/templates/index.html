@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hangman Game</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+  <script src="/static/script.js" defer></script>
+</head>
+<body>
+  <h1>🎯 Hangman Game</h1>
+  <p>Guess the word, one letter at a time!</p>
+
+  <h2 id="displayWord">_ _ _ _ _</h2>
+  <p>Guessed letters: <span id="guessedLetters">None</span></p>
+  <p>Wrong guesses: <span id="wrongCount">0</span> / 6</p>
+
+  <input type="text" id="letterInput" maxlength="1" placeholder="Enter a letter">
+  <button onclick="guessLetter()">Guess</button>
+  <button onclick="startGame()">New Game</button>
+
+  <p id="message"></p>
+</body>
+</html>
